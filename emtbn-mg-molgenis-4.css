@@ -1428,19 +1428,6 @@
     vertical-align: top;
     border-top: 1px solid #dee2e6;
   }
-
-  table.table tbody td {
-    padding: 8px;
-    white-space: nowrap !important;
-    overflow: hidden !important;
-    text-overflow: ellipsis !important;
-  }
-  table.table td {
-      max-width: 170px;
-  }
-  table.table th {
-      max-width:170px;
-  }
   
   .table thead th {
     vertical-align: bottom;
