@@ -7556,15 +7556,6 @@ table.table thead th {
 }
 table.table tbody td {
   padding: 8px;
-  white-space: nowrap !important;
-  overflow: hidden !important;
-  text-overflow: ellipsis !important;
-}
-table.table td {
-    max-width: 170px;
-}
-table.table th {
-    max-width:170px;
 }
 .glyphicon {
   top: 3px;
