@@ -7567,6 +7567,16 @@ table.table td {
 table.table th {
   max-width:170px;
 }
+
+.ellipsis-link {
+  display: inline-block;
+  max-width: 150px; /* or your desired width */
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis !important;
+  vertical-align: middle;
+}
+
 .glyphicon {
   top: 3px;
 }
