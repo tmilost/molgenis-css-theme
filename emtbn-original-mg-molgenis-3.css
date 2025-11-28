@@ -7561,54 +7561,11 @@ table.table tbody td {
   text-overflow: ellipsis !important;
 }
 
-table.table tbody td[data-content]:hover::after {
-  content: attr(data-content);
-  position: absolute;
-  background: #333;
-  color: #fff;
-  padding: 4px 8px;
-  border-radius: 4px;
-  white-space: nowrap;
-  top: 100%;
-  left: 0;
-  z-index: 10;
-  font-size: 12px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-}
-
-table.table tbody td {
-  position: relative;
-}
-
 table.table td {
   max-width: 170px;
 }
 table.table th {
   max-width:170px;
-}
-.ellipsis {
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis !important;
-  position: relative;
-  cursor: pointer;
-}
-
-.ellipsis:hover::after {
-  content: attr(data-tooltip);
-  position: absolute;
-  left: 50%;
-  bottom: 100%;
-  transform: translateX(-50%);
-  background: #333;
-  color: #fff;
-  padding: 4px 8px;
-  border-radius: 4px;
-  white-space: nowrap;
-  font-size: 12px;
-  z-index: 10;
-  opacity: 1;
-  pointer-events: none;
 }
 
 .glyphicon {
