@@ -7554,12 +7554,6 @@ table.table thead th {
   padding: 8px;
   vertical-align: middle;
 }
-table.table tbody td {
-  padding: 8px;
-  white-space: nowrap !important;
-  overflow: hidden !important;
-  text-overflow: ellipsis !important;
-}
 
 table.table td {
   max-width: 170px;
@@ -7567,6 +7561,22 @@ table.table td {
 table.table th {
   max-width:170px;
 }
+
+table.table tbody td {
+  padding: 8px;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+}
+
+table.table tbody td:hover {
+  overflow: visible !important;
+  white-space: normal !important;
+  text-overflow: clip !important;
+  max-width: none !important;
+}
+
+
 
 .glyphicon {
   top: 3px;
