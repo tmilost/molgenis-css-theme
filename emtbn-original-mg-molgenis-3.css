@@ -7554,14 +7554,6 @@ table.table thead th {
   padding: 8px;
   vertical-align: middle;
 }
-
-table.table td {
-  max-width: 170px;
-}
-table.table th {
-  max-width:170px;
-}
-
 table.table tbody td {
   padding: 8px;
   white-space: nowrap !important;
@@ -7569,14 +7561,12 @@ table.table tbody td {
   text-overflow: ellipsis !important;
 }
 
-table.table tbody td:hover {
-  overflow: visible !important;
-  white-space: normal !important;
-  text-overflow: clip !important;
-  max-width: none !important;
+table.table td {
+  max-width: 170px;
 }
-
-
+table.table th {
+  max-width:170px;
+}
 
 .glyphicon {
   top: 3px;
