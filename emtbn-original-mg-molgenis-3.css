@@ -7556,9 +7556,9 @@ table.table thead th {
 }
 table.table tbody td {
   padding: 8px;
-  white-space: nowrap !important;
-  overflow: hidden !important;
-  text-overflow: ellipsis !important;
+  white-space: normal !important;
+  overflow: visible !important;
+  text-overflow: unset !important;
 }
 
 table.table td {
@@ -7566,6 +7566,9 @@ table.table td {
 }
 table.table th {
   max-width:170px;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
 }
 
 .glyphicon {
