@@ -8849,7 +8849,7 @@ body > .container-fluid {
 /* Style the actual select element with the class 'custom-filter-emtbn' */
 .custom-filter-emtbn {
   /* Box Model & Sizing */
-  width: 100%;
+  min-width: 100%;
   padding: 8px 12px; /* Vertical and horizontal padding */
   height: 40px; /* Fixed height for a uniform look */
   
