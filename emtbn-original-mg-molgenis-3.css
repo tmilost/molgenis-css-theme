@@ -8846,35 +8846,40 @@ body > .container-fluid {
   transform: translateX(16px);
 }
 
-/* Style input and button inside .custom-input-emtbn to match .custom-filter-emtbn select */
-.custom-input-emtbn input.custom-filter-emtbn,
-.custom-input-emtbn button.custom-filter-btn {
+/* Style the actual select element with the class 'custom-filter-emtbn' */
+.custom-filter-emtbn {
+  /* Box Model & Sizing */
   min-width: 100%;
-  padding: 8px 12px;
-  height: 40px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  background-color: #f7f7f7;
-  color: #333;
+  padding: 8px 12px; /* Vertical and horizontal padding */
+  height: 40px; /* Fixed height for a uniform look */
+  
+  /* Appearance */
+  border: 1px solid #ccc; /* Light gray border */
+  border-radius: 4px; /* Slightly rounded corners */
+  background-color: #f7f7f7; /* Very light gray background */
+  color: #333; /* Dark gray text color */
   font-family: Arial, sans-serif;
   font-size: 14px;
-  box-sizing: border-box;
+  
+  /* Remove default browser styling for a custom look */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
 }
 
-.custom-input-emtbn input.custom-filter-emtbn:focus {
-  border-color: #5b9dd9;
+/* Add a custom focus state */
+.custom-filter-emtbn:focus {
+  border-color: #5b9dd9; /* A blue focus border */
   box-shadow: 0 0 5px rgba(91, 157, 217, 0.5);
-  outline: none;
-  background-color: #fff;
+  outline: none; /* Remove default browser outline */
+  background-color: #fff; /* White background when focused */
 }
 
-.custom-input-emtbn button.custom-filter-btn {
-  cursor: pointer;
-  transition: background 0.2s, border 0.2s;
-}
-.custom-input-emtbn button.custom-filter-btn:hover,
-.custom-input-emtbn button.custom-filter-btn:focus {
-  background-color: #e6f0fa;
-  border-color: #5b9dd9;
+/* Add the dropdown arrow using a background image/gradient */
+.custom-filter-emtbn {
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2212%22%20height%3D%2212%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20fill%3D%22%23666%22%20d%3D%22M7.41%208.59L12%2013.17l4.59-4.58L18%2010l-6%206-6-6z%22%2F%3E%3C%2Fsvg%3E");
+  background-repeat: no-repeat;
+  background-position: right 8px center; /* Position the arrow */
+  padding-right: 30px; /* Make space for the arrow */
 }
 
