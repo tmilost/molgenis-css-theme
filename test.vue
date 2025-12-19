@@ -51,7 +51,7 @@ diagnosisInputWrapper.className = 'custom-input-emtbn';
 
 const diagnosisInput = document.createElement('input');
 diagnosisInput.type = 'text';
-diagnosisInput.className = 'custom-filter-emtbn';
+diagnosisInput.className = 'custom-input-emtbn';
 diagnosisInput.placeholder = 'Enter Diagnosis Name';
 
 const diagnosisButton = document.createElement('button');
@@ -103,7 +103,7 @@ ageNumberWrapper.className = 'custom-input-emtbn';
 
 const ageNumberInput = document.createElement('input');
 ageNumberInput.type = 'number';
-ageNumberInput.className = 'custom-filter-emtbn';
+ageNumberInput.className = 'custom-input-emtbn';
 ageNumberInput.placeholder = 'Enter Diagnosis Age';
 ageNumberInput.min = '1';
 
@@ -160,7 +160,7 @@ hgvsInputWrapper.className = 'custom-input-emtbn';
 
 const hgvsInput = document.createElement('input');
 hgvsInput.type = 'text';
-hgvsInput.className = 'custom-filter-emtbn';
+hgvsInput.className = 'custom-input-emtbn';
 hgvsInput.placeholder = 'Enter hgvs record...';
 
 const hgvsButton = document.createElement('button');
