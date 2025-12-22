@@ -8883,3 +8883,47 @@ body > .container-fluid {
   padding-right: 30px; /* Make space for the arrow */
 }
 
+/* Style the custom input and button to match the select */
+.custom-input-emtbn input[type="text"].custom-input-emtbn {
+  min-width: 100%;
+  padding: 8px 12px;
+  height: 40px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #f7f7f7;
+  color: #333;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  transition: border-color 0.2s, box-shadow 0.2s, background-color 0.2s;
+}
+
+.custom-input-emtbn input[type="text"].custom-input-emtbn:focus {
+  border-color: #5b9dd9;
+  box-shadow: 0 0 5px rgba(91, 157, 217, 0.5);
+  outline: none;
+  background-color: #fff;
+}
+
+.custom-input-emtbn .custom-filter-btn {
+  height: 40px;
+  padding: 8px 20px;
+  margin-left: 8px;
+  border: 1px solid #5b9dd9;
+  border-radius: 4px;
+  background-color: #5b9dd9;
+  color: #fff;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.custom-input-emtbn .custom-filter-btn:hover,
+.custom-input-emtbn .custom-filter-btn:focus {
+  background-color: #407ec9;
+  border-color: #407ec9;
+}
+
