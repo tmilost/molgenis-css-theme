@@ -8869,7 +8869,7 @@ body > .container-fluid {
 
 /* Add a custom focus state */
 .custom-filter-emtbn:focus {
-  border-color: #5b9dd9; /* A blue focus border */
+  border-color: #005ec4; /* A blue focus border */
   box-shadow: 0 0 5px rgba(91, 157, 217, 0.5);
   outline: none; /* Remove default browser outline */
   background-color: #fff; /* White background when focused */
@@ -8883,10 +8883,15 @@ body > .container-fluid {
   padding-right: 30px; /* Make space for the arrow */
 }
 
+.custom-input-emtbn {
+  display: flex;
+  flex-direction: row;
+  flex-grow: 1;
+}
 /* Style the custom input and button to match the select */
-.custom-input-emtbn input[type="text"].custom-input-emtbn {
-  min-width: 100%;
+.custom-input-emtbn input.custom-input-emtbn {
   padding: 8px 12px;
+  margin-top: 20px;
   height: 40px;
   border: 1px solid #ccc;
   border-radius: 4px;
@@ -8900,8 +8905,8 @@ body > .container-fluid {
   transition: border-color 0.2s, box-shadow 0.2s, background-color 0.2s;
 }
 
-.custom-input-emtbn input[type="text"].custom-input-emtbn:focus {
-  border-color: #5b9dd9;
+.custom-input-emtbn input.custom-input-emtbn:focus {
+  border-color: #005ec4;
   box-shadow: 0 0 5px rgba(91, 157, 217, 0.5);
   outline: none;
   background-color: #fff;
@@ -8910,10 +8915,9 @@ body > .container-fluid {
 .custom-input-emtbn .custom-filter-btn {
   height: 40px;
   padding: 8px 20px;
-  margin-left: 8px;
-  border: 1px solid #5b9dd9;
+  border: 1px solid #005ec4;
   border-radius: 4px;
-  background-color: #5b9dd9;
+  background-color: #005ec4;
   color: #fff;
   font-family: Arial, sans-serif;
   font-size: 14px;
