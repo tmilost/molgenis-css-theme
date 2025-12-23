@@ -8887,11 +8887,11 @@ body > .container-fluid {
   display: flex;
   flex-direction: row;
   flex-grow: 1;
+  padding-top: 20px;
 }
 /* Style the custom input and button to match the select */
 .custom-input-emtbn input.custom-input-emtbn {
   padding: 8px 12px;
-  margin-top: 20px;
   height: 40px;
   border: 1px solid #ccc;
   border-radius: 4px;
