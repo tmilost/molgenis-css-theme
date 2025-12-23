@@ -1,4 +1,35 @@
 <script>
+const dataset = document.querySelector('#dataset-select');
+if (dataset) {
+  // Remove all existing options
+  while (dataset.firstChild) {
+    dataset.removeChild(dataset.firstChild);
+  }
+  // Add the required options
+  const options = [
+    ["", ""],
+    ["Follow up", "emtbn_follow_up"],
+    ["Initial diagnosis (ID)", "emtbn_initial_diagnosis"],
+    ["MTB", "emtbn_mtb"],
+    ["MTB participant", "emtbn_mtb_participant"],
+    ["Molecular diagnosis", "emtbn_molecular_diagnosis"],
+    ["Molecular variant", "emtbn_molecular_variant"],
+    ["Pathology report", "emtbn_pathology_report"],
+    ["Patient", "emtbn_patient"],
+    ["Sample", "emtbn_sample"],
+    ["Therapy", "emtbn_therapy"]
+  ];
+  options.forEach(([text, value]) => {
+    const opt = document.createElement('option');
+    opt.value = value;
+    opt.textContent = text;
+    dataset.appendChild(opt);
+  });
+}
+</script>
+
+
+<script>
   const dataset = document.querySelector('#dataset-select');
   if (dataset) {
     // Remove existing options
