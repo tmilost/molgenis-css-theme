@@ -7385,8 +7385,9 @@ body span.CodeMirror-selectedtext {
   text-align: left !important;
   width: 100%;
 }
-.mg-page {
-  padding: 16px;
+
+.mg-sticky-header-padder {
+  height: 0 !important;
 }
 .mg-page .mg-page-content {
   margin-top: 32px;
