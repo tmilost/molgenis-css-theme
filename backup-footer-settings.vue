@@ -71,6 +71,8 @@ if (canSERVURI) {
 </script>
 
 <script>
+// Only display the filter panel if 'dataexplorer' is in the URL
+if (window.location.href.includes('dataexplorer')) {
 // Ensure #selectors exists
 let selectors = document.getElementById('selectors');
 if (!selectors) {
@@ -298,6 +300,7 @@ hgvsButton.addEventListener('click', async function() {
     alert('Error: ' + e.message);
   }
 });
+	}
 </script>
 
 <script>
