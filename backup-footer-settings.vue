@@ -1,0 +1,316 @@
+
+<script>
+	const dataset = document.querySelector('#dataset-select');
+if (dataset) {
+  // Remove all existing options
+  while (dataset.firstChild) {
+    dataset.removeChild(dataset.firstChild);
+  }
+  // Add the required options
+  const options = [
+    ["", ""],
+    ["Follow up", "emtbn_follow_up"],
+    ["Initial diagnosis (ID)", "emtbn_initial_diagnosis"],
+    ["MTB", "emtbn_mtb"],
+    ["MTB participant", "emtbn_mtb_participant"],
+    ["Molecular diagnosis", "emtbn_molecular_diagnosis"],
+    ["Molecular variant", "emtbn_molecular_variant"],
+    ["Pathology report", "emtbn_pathology_report"],
+    ["Patient", "emtbn_patient"],
+    ["Sample", "emtbn_sample"],
+    ["Therapy", "emtbn_therapy"]
+  ];
+  options.forEach(([text, value]) => {
+    const opt = document.createElement('option');
+    opt.value = value;
+    opt.textContent = text;
+    dataset.appendChild(opt);
+  });
+}
+</script>
+<script>
+  const dataset = document.querySelector('#dataset-select');
+  if (dataset) {
+    // Remove existing options
+    Array.from(dataset).forEach((option) => {
+      dataset.removeChild(option);
+    });
+    // get or set your new options here.
+    var newDataset = [["Patient", "emtbn_patient"], 
+      ["Initial diagnosis (ID)", "emtbn_initial_diagnosis"], 
+      ["Pathology report", "emtbn_pathology_report"], 
+      ["Molecular diagnosis", "emtbn_molecular_diagnosis"],
+      ["Therapy", "emtbn_therapy"],
+      ["MTB", "emtbn_mtb"],
+      ["Follow up", "emtbn_follow_up"]];
+    // Add new options
+    newDataset.map((optionData) => {
+      var opt = document.createElement('option');
+      opt.appendChild(document.createTextNode(optionData[0]));
+      opt.value = optionData[1];
+      dataset.appendChild(opt);
+    });
+  }
+</script>
+
+<script>
+var link = document.createElement('link');
+link.rel = 'stylesheet';
+link.href = 'https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css';
+document.head.appendChild(link);
+
+const favicon = document.querySelector('link[rel="icon"]');
+if (favicon) {
+  favicon.setAttribute("href", 'https://www.canserv.eu/wp-content/uploads/fbrfg/favicon-32x32.png');
+}
+
+const canSERVURI = document.querySelector('a[href="https://molgenis.gitbook.io/molgenis/"]');
+if (canSERVURI) {
+  canSERVURI.setAttribute('href', 'https://www.canserv.eu/');
+}
+</script>
+
+<script>
+// Ensure #selectors exists
+let selectors = document.getElementById('selectors');
+if (!selectors) {
+  selectors = document.createElement('div');
+  selectors.id = 'selectors';
+  document.body.appendChild(selectors);
+}
+// Find or create the .well.well-sm inside #selectors
+let wellDiv = selectors.querySelector('.well.well-sm');
+if (!wellDiv) {
+  wellDiv = document.createElement('div');
+  wellDiv.className = 'well well-sm';
+  selectors.appendChild(wellDiv);
+}
+
+// --- Dropdown ---
+const select = document.createElement('select');
+select.className = 'custom-filter-emtbn';
+
+const optionDefault = document.createElement('option');
+optionDefault.value = '';
+optionDefault.text = 'Filter';
+optionDefault.selected = true;
+
+const optionMale = document.createElement('option');
+optionMale.value = 'male';
+optionMale.text = 'Gender Male';
+
+const optionFemale = document.createElement('option');
+optionFemale.value = 'female';
+optionFemale.text = 'Gender Female';
+
+select.appendChild(optionDefault);
+select.appendChild(optionMale);
+select.appendChild(optionFemale);
+
+wellDiv.appendChild(select);
+
+select.addEventListener('change', function() {
+  if (this.value === 'male') {
+    window.location.href = '?entity=emtbn_patient&mod=data&hideselect=false&filter=bio_sex==male';
+  } else if (this.value === 'female') {
+    window.location.href = '?entity=emtbn_patient&mod=data&hideselect=false&filter=bio_sex==female';
+  }
+});
+
+// --- Input + Button, initial_diagnosis Name ---
+const diagnosisInputWrapper = document.createElement('div');
+diagnosisInputWrapper.className = 'custom-input-emtbn';
+
+const diagnosisInput = document.createElement('input');
+diagnosisInput.type = 'text';
+diagnosisInput.className = 'custom-input-emtbn';
+diagnosisInput.placeholder = 'Enter Diagnosis Name';
+
+const diagnosisButton = document.createElement('button');
+diagnosisButton.textContent = 'Filter';
+diagnosisButton.className = 'custom-filter-btn';
+
+diagnosisInputWrapper.appendChild(diagnosisInput);
+diagnosisInputWrapper.appendChild(diagnosisButton);
+wellDiv.appendChild(diagnosisInputWrapper);
+
+diagnosisButton.addEventListener('click', async function() {
+  const value = diagnosisInput.value.trim();
+  if (!value) return;
+  try {
+    const apiUrl = 'https://emtbn.canserv.eu/api/v2/emtbn_initial_diagnosis?attrs=~id,id,label,description,diagnosis,icd10,ecog_status,age,biological_age&num=1000';
+    const response = await fetch(apiUrl);
+    if (!response.ok) throw new Error('API error');
+    const data = await response.json();
+    if (!data.items || !Array.isArray(data.items)) throw new Error('Invalid API response');
+    // Find item(s) with diagnosis containing the substring (case-insensitive)
+    const search = value.toLowerCase();
+    const filtered = data.items.filter(item => (item.diagnosis || '').toLowerCase().includes(search));
+    if (filtered.length === 0) {
+      alert('No diagnosis found containing: ' + value);
+      return;
+    }
+    // Collect all matching ids
+    const ids = filtered.map(item => item.id).filter(Boolean);
+    if (ids.length === 0) {
+      alert('No id found for diagnosis: ' + value);
+      return;
+    }
+    let filterParam = '';
+    if (ids.length === 1) {
+      filterParam = `initial_diagnosis==${encodeURIComponent(ids[0])}`;
+    } else {
+      filterParam = `initial_diagnosis=in=(${ids.map(encodeURIComponent).join(',')})`;
+    }
+    // Redirect to the second API (dataexplorer)
+    window.location.href = `https://emtbn.canserv.eu/menu/main/dataexplorer?entity=emtbn_patient&mod=data&filter=${filterParam}`;
+  } catch (e) {
+    alert('Error: ' + e.message);
+  }
+});
+
+// --- Input + Button for Positive Number, initial_diagnosis Age ---
+const ageNumberWrapper = document.createElement('div');
+ageNumberWrapper.className = 'custom-input-emtbn';
+
+const ageNumberInput = document.createElement('input');
+ageNumberInput.type = 'number';
+ageNumberInput.className = 'custom-input-emtbn';
+ageNumberInput.placeholder = 'Enter Diagnosis Age';
+ageNumberInput.min = '1';
+
+const ageNumberButton = document.createElement('button');
+ageNumberButton.textContent = 'Search Number';
+ageNumberButton.className = 'custom-filter-btn';
+
+ageNumberWrapper.appendChild(ageNumberInput);
+ageNumberWrapper.appendChild(ageNumberButton);
+wellDiv.appendChild(ageNumberWrapper);
+
+ageNumberButton.addEventListener('click', async function() {
+  const value = ageNumberInput.value.trim();
+  const ageNum = Number(value);
+  if (!value || isNaN(ageNum) || ageNum <= 0) {
+    alert('Please enter a positive number.');
+    return;
+  }
+  try {
+    const apiUrl = 'https://emtbn.canserv.eu/api/v2/emtbn_initial_diagnosis?attrs=~id,id,label,description,diagnosis,icd10,ecog_status,age,biological_age&num=1000';
+    const response = await fetch(apiUrl);
+    if (!response.ok) throw new Error('API error');
+    const data = await response.json();
+    if (!data.items || !Array.isArray(data.items)) throw new Error('Invalid API response');
+    // Find item(s) with matching age
+    const filtered = data.items.filter(item => Number(item.age) === ageNum);
+    if (filtered.length === 0) {
+      alert('No diagnosis found for age: ' + value);
+      return;
+    }
+    // Collect all matching ids
+    const ids = filtered.map(item => item.id).filter(Boolean);
+    if (ids.length === 0) {
+      alert('No id found for age: ' + value);
+      return;
+    }
+    let filterParam = '';
+    if (ids.length === 1) {
+      filterParam = `initial_diagnosis==${encodeURIComponent(ids[0])}`;
+    } else {
+      filterParam = `initial_diagnosis=in=(${ids.map(encodeURIComponent).join(',')})`;
+    }
+    // Redirect to the second API (dataexplorer)
+    window.location.href = `https://emtbn.canserv.eu/menu/main/dataexplorer?entity=emtbn_patient&mod=data&filter=${filterParam}`;
+  } catch (e) {
+    alert('Error: ' + e.message);
+  }
+});
+
+
+// --- Input + Button, hgvs record ---
+const hgvsInputWrapper = document.createElement('div');
+hgvsInputWrapper.className = 'custom-input-emtbn';
+
+const hgvsInput = document.createElement('input');
+hgvsInput.type = 'text';
+hgvsInput.className = 'custom-input-emtbn';
+hgvsInput.placeholder = 'Enter hgvs record...';
+
+const hgvsButton = document.createElement('button');
+hgvsButton.textContent = 'Filter';
+hgvsButton.className = 'custom-filter-btn';
+
+hgvsInputWrapper.appendChild(hgvsInput);
+hgvsInputWrapper.appendChild(hgvsButton);
+wellDiv.appendChild(hgvsInputWrapper);
+
+hgvsButton.addEventListener('click', async function() {
+  const value = hgvsInput.value.trim();
+  if (!value) return;
+  try {
+    // 1. Fetch molecular diagnosis
+    const molDiagUrl = 'https://emtbn.canserv.eu/api/v2/emtbn_molecular_diagnosis?attrs=~id,id,label,description,test_type,date,molecular_variant&num=1000';
+    const molDiagResp = await fetch(molDiagUrl);
+    if (!molDiagResp.ok) throw new Error('API error (molecular diagnosis)');
+    const molDiagData = await molDiagResp.json();
+    if (!molDiagData.items || !Array.isArray(molDiagData.items)) throw new Error('Invalid API response (molecular diagnosis)');
+    const search = value.toLowerCase();
+    // 2. Find all molecular_diagnosis.id where any molecular_variant.hgvs_record matches input
+    const matchingMolDiagIds = new Set();
+    molDiagData.items.forEach(item => {
+      if (Array.isArray(item.molecular_variant)) {
+        item.molecular_variant.forEach(variant => {
+          if ((variant.hgvs_record || '').toLowerCase().includes(search) && item.id) {
+            matchingMolDiagIds.add(item.id);
+          }
+        });
+      }
+    });
+    if (matchingMolDiagIds.size === 0) {
+      alert('No molecular diagnosis found for hgvs record: ' + value);
+      return;
+    }
+    // 3. Fetch pathology report
+    const pathUrl = 'https://emtbn.canserv.eu/api/v2/emtbn_pathology_report?attrs=~id,id,label,description,laboratory,date,sample(*)&num=1000';
+    const pathResp = await fetch(pathUrl);
+    if (!pathResp.ok) throw new Error('API error (pathology report)');
+    const pathData = await pathResp.json();
+    if (!pathData.items || !Array.isArray(pathData.items)) throw new Error('Invalid API response (pathology report)');
+    // 4. Filter pathology items by sample.molecular_diagnosis.id
+    const matchingPathIds = pathData.items.filter(item => {
+      if (item.sample && item.sample.molecular_diagnosis && item.sample.molecular_diagnosis.id) {
+        return matchingMolDiagIds.has(item.sample.molecular_diagnosis.id);
+      }
+      return false;
+    }).map(item => item.id).filter(Boolean);
+    if (matchingPathIds.length === 0) {
+      alert('No pathology report found for molecular diagnosis.');
+      return;
+    }
+    // 5. Redirect to the patient dataexplorer with the found pathology report ids
+    let filterParam = '';
+    if (matchingPathIds.length === 1) {
+      filterParam = `initial_diagnosis==${matchingPathIds[0]}`;
+    } else {
+      filterParam = `initial_diagnosis=in=(${matchingPathIds.join(',')})`;
+    }
+    window.location.href = `https://emtbn.canserv.eu/menu/main/dataexplorer?entity=emtbn_patient&mod=data&filter=${filterParam}`;
+  } catch (e) {
+    alert('Error: ' + e.message);
+  }
+});
+</script>
+
+<script>
+// Remove filter panel
+// Find all panel-title elements
+var panelTitles = document.querySelectorAll('.panel-title');
+panelTitles.forEach(function(title) {
+  if (title.textContent.trim() === 'Data item selection') {
+    // Remove the panel's parent .panel.panel-primary
+    var panel = title.closest('.panel.panel-primary');
+    if (panel) {
+      panel.remove();
+    }
+  }
+});
+</script>
